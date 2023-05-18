@@ -432,11 +432,13 @@ def main(args=None):
     if multi_node_exec and not args.no_ssh_check:
         first_host = list(active_resources.keys())[0]
         try:
+            print('check ssh')
             subprocess.check_call(
-                f'ssh -o PasswordAuthentication=no {first_host} hostname',
+                f'ssh -o PasswordAuthentication=no -o StrictHostKeyChecking=no {first_host} hostname', 
                 stderr=subprocess.DEVNULL,
                 stdout=subprocess.DEVNULL,
                 shell=True)
+
         except subprocess.CalledProcessError:
             raise RuntimeError(
                 f"Using hostfile at {args.hostfile} but host={first_host} was not reachable via ssh. If you are running with a single node please remove {args.hostfile} or setup passwordless ssh."
@@ -445,9 +447,11 @@ def main(args=None):
     if not args.master_addr:
         assert multi_node_exec
         first_host = list(active_resources.keys())[0]
-        hostname_cmd = [f"ssh {first_host} hostname -I"]
+        print('check master')
+        hostname_cmd = [f"ssh -o StrictHostKeyChecking=no {first_host} hostname -I"]
         try:
             result = subprocess.check_output(hostname_cmd, shell=True)
+            
         except subprocess.CalledProcessError as err:
             logger.error(
                 "Unable to detect suitable master address via `hostname -I`, please manually specify one via --master_addr"
