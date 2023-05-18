@@ -686,6 +686,7 @@ def mpi_discovery(distributed_port=TORCH_DISTRIBUTED_DEFAULT_PORT, verbose=True)
     proc_name = MPI.Get_processor_name()
     all_procs = comm.allgather(proc_name)
     local_rank = sum([i == proc_name for i in all_procs[:rank]])
+    print(master_addr, 'master_addr', distributed_port, rank, world_size, local_rank)
 
     os.environ['RANK'] = str(rank)
     os.environ['WORLD_SIZE'] = str(world_size)
