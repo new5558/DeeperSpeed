@@ -91,6 +91,7 @@ class PDSHRunner(MultiNodeRunner):
         deepspeed_launch = [
             exports,
             f"cd {os.path.abspath('.')};",
+            "ml load Apptainer;",
             "apptainer run --nv --home /project/lt200056-opgpth/gpt-neox-new --bind /home/nbuppodo/.ssh:/project/lt200056-opgpth/gpt-neox-new/.ssh neox-v2-custom.sif",
             sys.executable,
             "-u",
