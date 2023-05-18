@@ -73,7 +73,7 @@ class PDSHRunner(MultiNodeRunner):
         # import os
         # os.environ["PDSH_SSH_ARGS_APPEND"] = "-o StrictHostKeyChecking=no"
         pdsh_cmd_args = [
-            'export PDSH_SSH_ARGS_APPEND="-o StrictHostKeyChecking=no" && '
+            'export PDSH_SSH_ARGS_APPEND="-o StrictHostKeyChecking=no" &&'
             'pdsh',
             '-S',
             '-f',
@@ -94,7 +94,7 @@ class PDSHRunner(MultiNodeRunner):
             sys.executable,
             "-u",
             "-m",
-            "deepspeed.launcher.launch",
+            "apptainer run --nv --home /project/lt200056-opgpth/gpt-neox-new --bind /home/nbuppodo/.ssh:/project/lt200056-opgpth/gpt-neox-new/.ssh neox-v2-custom.sif deepspeed.launcher.launch",
             f'--world_info={self.world_info_base64}',
             "--node_rank=%n",
             f"--master_addr={self.args.master_addr}",
