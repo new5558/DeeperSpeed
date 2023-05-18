@@ -72,8 +72,8 @@ class PDSHRunner(MultiNodeRunner):
         # See https://linux.die.net/man/1/pdsh for flag details
         # import os
         # os.environ["PDSH_SSH_ARGS_APPEND"] = "-o StrictHostKeyChecking=no"
+        environment['PDSH_SSH_ARGS_APPEND'] = '-o StrictHostKeyChecking=no'
         pdsh_cmd_args = [
-            'export PDSH_SSH_ARGS_APPEND="-o StrictHostKeyChecking=no" &&'
             'pdsh',
             '-S',
             '-f',
