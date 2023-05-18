@@ -91,10 +91,11 @@ class PDSHRunner(MultiNodeRunner):
         deepspeed_launch = [
             exports,
             f"cd {os.path.abspath('.')};",
+            "apptainer run --nv --home /project/lt200056-opgpth/gpt-neox-new --bind /home/nbuppodo/.ssh:/project/lt200056-opgpth/gpt-neox-new/.ssh neox-v2-custom.sif",
             sys.executable,
             "-u",
             "-m",
-            "apptainer run --nv --home /project/lt200056-opgpth/gpt-neox-new --bind /home/nbuppodo/.ssh:/project/lt200056-opgpth/gpt-neox-new/.ssh neox-v2-custom.sif deepspeed.launcher.launch",
+            "deepspeed.launcher.launch",
             f'--world_info={self.world_info_base64}',
             "--node_rank=%n",
             f"--master_addr={self.args.master_addr}",
