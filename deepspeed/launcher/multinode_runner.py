@@ -73,9 +73,9 @@ class PDSHRunner(MultiNodeRunner):
         pdsh_cmd_args = [
             'pdsh',
             '-S',
-            '-f',
             '-o',
-            'StrictHostKeyChecking=no',
+            '"-o StrictHostKeyChecking=no"',
+            '-f',
             str(PDSH_MAX_FAN_OUT),
             '-w',
             active_workers
