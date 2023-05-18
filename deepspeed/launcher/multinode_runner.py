@@ -70,11 +70,12 @@ class PDSHRunner(MultiNodeRunner):
 
         # PDSH flags for max node fan out and specific hosts to launch on
         # See https://linux.die.net/man/1/pdsh for flag details
+        # import os
+        # os.environ["DEBUSSY"] = "1"
         pdsh_cmd_args = [
+            'PDSH_SSH_ARGS_APPEND="-o StrictHostKeyChecking=no"',
             'pdsh',
             '-S',
-            '-o',
-            '"-o StrictHostKeyChecking=no"',
             '-f',
             str(PDSH_MAX_FAN_OUT),
             '-w',
