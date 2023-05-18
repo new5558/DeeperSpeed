@@ -434,12 +434,13 @@ def main(args=None):
         try:
             print('check ssh')
             subprocess.check_call(
-                f'ssh -o PasswordAuthentication=no -o StrictHostKeyChecking=no {first_host} hostname', 
+                f'ssh -o StrictHostKeyChecking=no {first_host} hostname', 
                 stderr=subprocess.DEVNULL,
                 stdout=subprocess.DEVNULL,
                 shell=True)
 
-        except subprocess.CalledProcessError:
+        except subprocess.CalledProcessError as e:
+            print(e, 'error print')
             raise RuntimeError(
                 f"Using hostfile at {args.hostfile} but host={first_host} was not reachable via ssh. If you are running with a single node please remove {args.hostfile} or setup passwordless ssh."
             )
