@@ -74,6 +74,8 @@ class PDSHRunner(MultiNodeRunner):
             'pdsh',
             '-S',
             '-f',
+            '-o',
+            'StrictHostKeyChecking=no',
             str(PDSH_MAX_FAN_OUT),
             '-w',
             active_workers
