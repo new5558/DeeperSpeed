@@ -88,11 +88,12 @@ class PDSHRunner(MultiNodeRunner):
 
         # https://linux.die.net/man/1/pdsh
         # %n will be replaced by pdsh command
+        runner = environment['RUNNER']
+        print(runner, 'runner')
         deepspeed_launch = [
             exports,
             f"cd {os.path.abspath('.')};",
-            "ml load Apptainer;",
-            "apptainer run --nv --home /project/lt200056-opgpth/gpt-neox-new --bind /home/nbuppodo/.ssh:/project/lt200056-opgpth/gpt-neox-new/.ssh neox-v2-custom.sif",
+            runner,
             sys.executable,
             "-u",
             "-m",
